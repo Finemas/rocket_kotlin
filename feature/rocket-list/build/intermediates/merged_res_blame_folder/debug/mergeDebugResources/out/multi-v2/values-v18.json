@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.rocket.rocketlist.rocket-list-mergeDebugResources-55:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "/Users/fineas/.gradle/caches/transforms-4/d2fab5b8792caa698936baa600ec6c7b/transformed/appcompat-1.6.1/res/values-v18/values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.example.rocket.rocketlist.rocket-list-debug-57:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "/Users/fineas/.gradle/caches/transforms-4/d2fab5b8792caa698936baa600ec6c7b/transformed/appcompat-1.6.1/res/values-v18/values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

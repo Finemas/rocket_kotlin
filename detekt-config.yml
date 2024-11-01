@@ -1,0 +1,110 @@
+complexity:
+  LargeClass:
+    excludes: [
+      '**/test/**',
+      '**/androidTest/**',
+      '**/commonTest/**',
+      '**/jvmTest/**',
+      '**/androidUnitTest/**',
+      '**/androidInstrumentedTest/**',
+      '**/jsTest/**',
+      '**/iosTest/**'
+    ]
+  LongMethod:
+    ignoreAnnotated: [ 'Composable' ]
+    excludes: [
+      '**/test/**',
+      '**/androidTest/**',
+      '**/commonTest/**',
+      '**/jvmTest/**',
+      '**/androidUnitTest/**',
+      '**/androidInstrumentedTest/**',
+      '**/jsTest/**',
+      '**/iosTest/**'
+    ]
+  LongParameterList:
+    ignoreAnnotated: [ 'Composable' ]
+  TooManyFunctions:
+    ignorePrivate: true
+    excludes: [
+      '**/test/**',
+      '**/androidTest/**',
+      '**/commonTest/**',
+      '**/jvmTest/**',
+      '**/androidUnitTest/**',
+      '**/androidInstrumentedTest/**',
+      '**/jsTest/**',
+      '**/iosTest/**'
+    ]
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: [ 'Composable' ]
+
+empty-blocks:
+  EmptyFunctionBlock:
+    excludes: [
+      '**/test/**',
+      '**/androidTest/**',
+      '**/commonTest/**',
+      '**/jvmTest/**',
+      '**/androidUnitTest/**',
+      '**/androidInstrumentedTest/**',
+      '**/jsTest/**',
+      '**/iosTest/**'
+    ]
+
+style:
+  MagicNumber:
+    ignoreAnnotated: [ '*Preview*' ]
+    excludes: [
+      '**/test/**',
+      '**/androidTest/**',
+      '**/commonTest/**',
+      '**/jvmTest/**',
+      '**/androidUnitTest/**',
+      '**/androidInstrumentedTest/**',
+      '**/jsTest/**',
+      '**/iosTest/**',
+      '**/cz/quanti/pickey/design/system/theme/**'
+    ]
+  MaxLineLength:
+    active: true
+    maxLineLength: 140
+    ignoreAnnotated: [ '*Preview*' ]
+    excludes: [
+      '**/test/**',
+      '**/androidTest/**',
+      '**/commonTest/**',
+      '**/jvmTest/**',
+      '**/androidUnitTest/**',
+      '**/androidInstrumentedTest/**',
+      '**/jsTest/**',
+      '**/iosTest/**'
+    ]
+  UnusedPrivateMember:
+    ignoreAnnotated: [ '*Preview*' ]
+  CanBeNonNullable:
+    active: true
+  ForbiddenComment:
+    active: false
+  ForbiddenMethodCall:
+    active: true
+    methods:
+      - reason: 'print does not allow you to configure the output stream. Use a logger instead.'
+        value: 'kotlin.io.print'
+      - reason: 'println does not allow you to configure the output stream. Use a logger instead.'
+        value: 'kotlin.io.println'
+
+formatting:
+  MaximumLineLength:
+    active: false
+  TrailingCommaOnCallSite:
+    active: true
+  TrailingCommaOnDeclarationSite:
+    active: true
+
+Compose:
+  CompositionLocalAllowlist:
+    active: true
+    allowedCompositionLocals: LocalThemeColors,LocalThemeDimensions,LocalThemeCornerRadii,LocalThemeTypography,LocalThemeSpacings,LocalThemeElevations,LocalThemeColors,LocalTopBarBackNavigationHandler
