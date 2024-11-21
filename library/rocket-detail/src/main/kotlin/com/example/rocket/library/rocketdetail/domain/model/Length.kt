@@ -1,4 +1,4 @@
-package com.example.rocket.library.rocketlist.domain.model
+package com.example.rocket.library.rocketdetail.domain.model
 
 class Length(
     val meters: Double,

@@ -1,6 +1,6 @@
 package com.example.rocket.feature.rocketlist.presentation.model
 
-internal data class RocketListScreenState(
+data class RocketListScreenState(
     val rockets: List<RocketRowState>,
 ) {
     companion object {
@@ -26,8 +26,8 @@ internal data class RocketListScreenState(
                         id = "4",
                         name = "Starship",
                         firstFlight = "2021-12-01",
-                    )
-                )
+                    ),
+                ),
             )
         }
     }

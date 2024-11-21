@@ -66,9 +66,13 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.kotlinx.serialization.core)
 
+    implementation(projects.feature.rocketList)
+    implementation(projects.feature.rocketDetail)
+    implementation(projects.library.rocketList)
     implementation(projects.library.networking)
     implementation(projects.library.uiCore)
-    implementation(projects.feature.rocketList)
+    implementation(projects.library.navigation)
+    implementation(projects.core.architecture)
 
     detektPlugins(libs.detekt.formatting)
     detektPlugins(libs.detekt.compose)

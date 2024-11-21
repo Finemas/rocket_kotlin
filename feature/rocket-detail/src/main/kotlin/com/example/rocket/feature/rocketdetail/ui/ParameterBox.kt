@@ -1,4 +1,4 @@
-package com.example.rocket.feature.rocketlist.ui
+package com.example.rocket.feature.rocketdetail.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,33 +22,33 @@ import com.example.rocket.library.uicore.ui.AppThemePreview
 fun ParameterBox(
     number: String,
     label: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
             .size(80.dp)
             .background(
                 Color(0xFFE57373),
-                 shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
             ),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = number,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             Text(
                 text = label,
                 fontSize = 12.sp,
                 color = Color.White,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }
@@ -60,7 +60,7 @@ fun ParameterBoxPreview() {
     AppThemePreview {
         ParameterBox(
             number = "Height",
-            label = "100t"
+            label = "100t",
         )
     }
 }

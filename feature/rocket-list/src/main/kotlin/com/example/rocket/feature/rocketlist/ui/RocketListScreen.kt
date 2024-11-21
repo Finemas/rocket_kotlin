@@ -1,7 +1,6 @@
 package com.example.rocket.feature.rocketlist.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.rocket.feature.rocketlist.presentation.RocketListViewModel
+import com.example.rocket.feature.rocketlist.presentation.model.RocketListAction
 import com.example.rocket.feature.rocketlist.presentation.model.RocketListScreenState
 import com.example.rocket.feature.rocketlist.presentation.model.RocketRowState
 import com.example.rocket.library.uicore.ui.AppThemePreview
@@ -24,7 +24,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RocketListScreen(
-    onGoToDetail: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RocketListViewModel = koinViewModel(),
 ) {
@@ -32,15 +31,17 @@ fun RocketListScreen(
 
     RocketListScreenContent(
         state = state,
-        onGoToDetail = onGoToDetail,
-        modifier = modifier
+        onGoToDetail = { id ->
+            viewModel.send(RocketListAction.OpenDetail(id))
+        },
+        modifier = modifier,
     )
 }
 
 @Composable
 internal fun RocketListScreenContent(
     state: RocketListScreenState,
-    onGoToDetail: () -> Unit,
+    onGoToDetail: (rocketId: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -48,15 +49,16 @@ internal fun RocketListScreenContent(
             .fillMaxWidth()
             .padding(16.dp)
             .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.background),
     ) {
         items(state.rockets) { rocket ->
             RocketRow(
                 rocket = rocket,
-                onClick = onGoToDetail,
+                onClick = {
+                    onGoToDetail(rocket.id)
+                },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onGoToDetail() }
+                    .fillMaxWidth(),
             )
 
             HorizontalDivider()
@@ -89,14 +91,14 @@ fun RocketListPreview() {
                     id = "4",
                     name = "Starship",
                     firstFlight = "01.12.2021",
-                )
-            )
+                ),
+            ),
         )
         RocketListScreenContent(
             state = state,
             onGoToDetail = {},
             modifier = Modifier
-                .background(Color.Red)
+                .background(Color.Red),
         )
     }
 }

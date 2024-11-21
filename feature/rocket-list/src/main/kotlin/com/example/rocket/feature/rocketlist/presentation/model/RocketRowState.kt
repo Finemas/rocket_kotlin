@@ -13,6 +13,6 @@ fun Rocket.toUiState(): RocketRowState {
     return RocketRowState(
         id = id,
         name = name,
-        firstFlight = firstFlight.formatToStringDate()
+        firstFlight = firstFlight.formatToStringDate(),
     )
 }

@@ -56,7 +56,7 @@ empty-blocks:
 
 style:
   MagicNumber:
-    ignoreAnnotated: [ '*Preview*' ]
+    ignoreAnnotated: [ '*Preview*', '*Composable*' ]
     excludes: [
       '**/test/**',
       '**/androidTest/**',

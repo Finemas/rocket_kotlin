@@ -16,17 +16,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.rocket.feature.rocketlist.ui.RocketDetailScreen
+import androidx.navigation.navArgument
+import com.example.rocket.feature.rocketlist.presentation.RocketListViewModel
+import com.example.rocket.feature.rocketlist.presentation.model.RocketListNavigationEvent
+import com.example.rocket.feature.rocketdetail.ui.RocketDetailScreen
 import com.example.rocket.feature.rocketlist.ui.RocketListScreen
-import kotlinx.serialization.Serializable
-
-@Serializable
-object RocketList
-@Serializable
-object RocketDetail
+import com.example.rocket.library.navigation.ui.Destination
+import com.example.rocket.library.navigation.ui.createDestinationPathWithParams
+import com.example.rocket.library.navigation.ui.destination
+import com.example.rocket.library.navigation.ui.navigateToDestination
+import com.example.rocket.library.navigation.ui.navigatingViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,26 +50,56 @@ fun MainContent(modifier: Modifier = Modifier) {
         Scaffold(
             modifier = modifier
                 .fillMaxSize()
-                .background(Color.LightGray)
+                .background(Color.LightGray),
         ) { innerPadding ->
             NavHost(
                 modifier = Modifier.padding(innerPadding),
                 navController = navController,
-                startDestination = RocketList,
+                startDestination = RocketList.destinationName,
                 enterTransition = { fadeIn(animationSpec = tween(300)) },
                 exitTransition = { fadeOut(animationSpec = tween(300)) },
             ) {
-                composable<RocketList> {
-                    RocketListScreen(
-                        onGoToDetail = {
-                            navController.navigate(RocketDetail)
-                        },
-                    )
+                destination(route = RocketList) {
+                    val viewModel = navigatingViewModel<RocketListNavigationEvent, RocketListViewModel> { event ->
+                        when (event) {
+                            is RocketListNavigationEvent.ToDetail -> {
+                                navController.navigateToDestination(
+                                    RocketDetail,
+                                    mapOf(RocketDetail.ROCKET_ID to event.rocketId),
+                                )
+                            }
+                        }
+                    }
+                    RocketListScreen(viewModel = viewModel)
                 }
-                composable<RocketDetail> { RocketDetailScreen() }
+
+                destination(
+                    route = RocketDetail,
+                    arguments = listOf(
+                        navArgument(name = RocketDetail.ROCKET_ID) {
+                            this.type = NavType.StringType
+                        },
+                    ),
+                ) { entry ->
+                    val id = entry.arguments!!.getString(RocketDetail.ROCKET_ID)
+                    val viewModel = koinViewModel<com.example.rocket.feature.rocketdetail.presentation.RocketDetailViewModel>(parameters = { parametersOf(id) })
+                    RocketDetailScreen(viewModel = viewModel)
+                }
             }
         }
     }
+}
+
+internal data object RocketList : Destination {
+    override val destinationName: String = "rocket_list"
+}
+
+internal data object RocketDetail : Destination {
+    override val destinationName: String = "rocket_detail"
+
+    override fun createDestinationPath(): String = createDestinationPathWithParams(listOf(ROCKET_ID))
+
+    const val ROCKET_ID = "rocket_id"
 }
 
 @Preview(showBackground = false)

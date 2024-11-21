@@ -15,12 +15,12 @@ import com.example.rocket.library.uicore.ui.AppThemePreview
 fun RocketRow(
     rocket: RocketRowState,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
             .clickable { onClick() }
-            .padding(20.dp)
+            .padding(20.dp),
     ) {
         Text(rocket.name)
         Text(rocket.firstFlight)
@@ -37,7 +37,7 @@ fun RocketRowPreview() {
                 name = "Falcon 1",
                 firstFlight = "2006-03-24",
             ),
-            onClick = {}
+            onClick = {},
         )
     }
 }

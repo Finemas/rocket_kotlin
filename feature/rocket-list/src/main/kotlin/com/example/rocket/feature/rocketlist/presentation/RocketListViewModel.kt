@@ -1,11 +1,25 @@
 package com.example.rocket.feature.rocketlist.presentation
 
-import androidx.lifecycle.ViewModel
+import com.example.rocket.core.architecture.presentation.BaseViewModel
+import com.example.rocket.feature.rocketlist.presentation.model.RocketListAction
+import com.example.rocket.feature.rocketlist.presentation.model.RocketListNavigationEvent
 import com.example.rocket.feature.rocketlist.presentation.model.RocketListScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class RocketListViewModel: ViewModel() {
+class RocketListViewModel : BaseViewModel<RocketListScreenState, RocketListAction, RocketListNavigationEvent, Unit>() {
     private val _state = MutableStateFlow(RocketListScreenState.initState())
-    internal val state: StateFlow<RocketListScreenState> = _state
+    override val state: StateFlow<RocketListScreenState> = _state
+
+    override fun send(action: RocketListAction) {
+        when (action) {
+            is RocketListAction.OpenDetail -> {
+                onOpenDetail(id = action.id)
+            }
+        }
+    }
+
+    private fun onOpenDetail(id: String) {
+        navigateTo(RocketListNavigationEvent.ToDetail(id))
+    }
 }

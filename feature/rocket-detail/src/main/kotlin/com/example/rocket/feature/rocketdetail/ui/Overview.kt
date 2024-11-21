@@ -1,4 +1,4 @@
-package com.example.rocket.feature.rocketlist.ui
+package com.example.rocket.feature.rocketdetail.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
@@ -12,13 +12,13 @@ import com.example.rocket.library.uicore.ui.AppThemePreview
 @Composable
 fun Overview(
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         Text(
             text = "Overview",
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
         Text(text)
     }
@@ -28,6 +28,8 @@ fun Overview(
 @Composable
 fun OverviewPreview() {
     AppThemePreview {
-        Overview("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula mi eu tellus scelerisque, sit amet volutpat nisi egestas. Sed.")
+        Overview(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula mi eu tellus scelerisque, sit amet volutpat nisi egestas. Sed.",
+        )
     }
 }

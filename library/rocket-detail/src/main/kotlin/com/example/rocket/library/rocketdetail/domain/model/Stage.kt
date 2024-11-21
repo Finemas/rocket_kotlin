@@ -1,4 +1,4 @@
-package com.example.rocket.library.rocketlist.domain.model
+package com.example.rocket.library.rocketdetail.domain.model
 
 data class Stage(
     val reusable: Boolean,

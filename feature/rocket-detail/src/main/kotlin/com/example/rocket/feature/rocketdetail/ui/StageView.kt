@@ -1,4 +1,4 @@
-package com.example.rocket.feature.rocketlist.ui
+package com.example.rocket.feature.rocketdetail.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,23 +17,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.rocket.library.rocketlist.domain.model.Stage
+import com.example.rocket.library.rocketdetail.domain.model.Stage
 import com.example.rocket.library.uicore.ui.AppThemePreview
 
 @Composable
 fun StageView(
     title: String,
     stage: Stage,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .background(
                 Color.LightGray,
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
             )
-            .padding(20.dp)
+            .padding(20.dp),
     ) {
         Column {
             Text(title)
@@ -55,7 +55,7 @@ fun StageRow(image: ImageVector = Icons.Default.Home, label: String) {
     Row {
         Icon(
             imageVector = image,
-            contentDescription = "Home"
+            contentDescription = "Home",
         )
         Text(text = label)
     }
@@ -69,12 +69,12 @@ fun StagePreview() {
             reusable = true,
             engines = 9,
             fuelAmountTons = 385.0,
-            burnTimeSec = 162
+            burnTimeSec = 162,
         )
 
         StageView(
             title = "First Stage",
-            stage = mockStage
+            stage = mockStage,
         )
     }
 }
