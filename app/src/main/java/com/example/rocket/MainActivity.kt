@@ -20,6 +20,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.rocket.feature.rocketdetail.presentation.RocketDetailViewModel
 import com.example.rocket.feature.rocketlist.presentation.RocketListViewModel
 import com.example.rocket.feature.rocketlist.presentation.model.RocketListNavigationEvent
 import com.example.rocket.feature.rocketdetail.ui.RocketDetailScreen
@@ -65,7 +66,10 @@ fun MainContent(modifier: Modifier = Modifier) {
                             is RocketListNavigationEvent.ToDetail -> {
                                 navController.navigateToDestination(
                                     RocketDetail,
-                                    mapOf(RocketDetail.ROCKET_ID to event.rocketId),
+                                    mapOf(
+                                        RocketDetail.ROCKET_ID to event.rocketId,
+                                        RocketDetail.ROCKET_NAME to event.rocketName
+                                    ),
                                 )
                             }
                         }
@@ -79,10 +83,14 @@ fun MainContent(modifier: Modifier = Modifier) {
                         navArgument(name = RocketDetail.ROCKET_ID) {
                             this.type = NavType.StringType
                         },
+                        navArgument(name = RocketDetail.ROCKET_NAME) {
+                            this.type = NavType.StringType
+                        }
                     ),
                 ) { entry ->
                     val id = entry.arguments!!.getString(RocketDetail.ROCKET_ID)
-                    val viewModel = koinViewModel<com.example.rocket.feature.rocketdetail.presentation.RocketDetailViewModel>(parameters = { parametersOf(id) })
+                    val name = entry.arguments!!.getString(RocketDetail.ROCKET_NAME)
+                    val viewModel = koinViewModel<RocketDetailViewModel>(parameters = { parametersOf(id, name) })
                     RocketDetailScreen(viewModel = viewModel)
                 }
             }
@@ -97,9 +105,10 @@ internal data object RocketList : Destination {
 internal data object RocketDetail : Destination {
     override val destinationName: String = "rocket_detail"
 
-    override fun createDestinationPath(): String = createDestinationPathWithParams(listOf(ROCKET_ID))
+    override fun createDestinationPath(): String = createDestinationPathWithParams(listOf(ROCKET_ID, ROCKET_NAME))
 
     const val ROCKET_ID = "rocket_id"
+    const val ROCKET_NAME = "rocket_name"
 }
 
 @Preview(showBackground = false)

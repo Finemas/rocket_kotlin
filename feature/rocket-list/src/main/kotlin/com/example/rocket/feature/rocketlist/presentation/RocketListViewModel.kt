@@ -14,12 +14,12 @@ class RocketListViewModel : BaseViewModel<RocketListScreenState, RocketListActio
     override fun send(action: RocketListAction) {
         when (action) {
             is RocketListAction.OpenDetail -> {
-                onOpenDetail(id = action.id)
+                onOpenDetail(id = action.id, name = action.name)
             }
         }
     }
 
-    private fun onOpenDetail(id: String) {
-        navigateTo(RocketListNavigationEvent.ToDetail(id))
+    private fun onOpenDetail(id: String, name: String) {
+        navigateTo(RocketListNavigationEvent.ToDetail(id, name))
     }
 }

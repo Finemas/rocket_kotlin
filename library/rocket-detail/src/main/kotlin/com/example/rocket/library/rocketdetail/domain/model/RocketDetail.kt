@@ -1,8 +1,6 @@
 package com.example.rocket.library.rocketdetail.domain.model
 
 data class RocketDetail(
-    val id: String,
-    val name: String,
     val description: String,
     val height: Length,
     val diameter: Length,

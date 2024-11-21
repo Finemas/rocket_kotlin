@@ -8,12 +8,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class RocketDetailViewModel internal constructor(
-    id: String,
+    val id: String,
+    val name: String,
     rocketDetail: RocketDetail?,
 ) : BaseViewModel<RocketDetailScreenState, Unit, Unit, Unit>() {
     private val _state: MutableStateFlow<RocketDetailScreenState> = MutableStateFlow(
         RocketDetailScreenState(
             id = id,
+            name = name,
             detail = rocketDetail,
         )
     )

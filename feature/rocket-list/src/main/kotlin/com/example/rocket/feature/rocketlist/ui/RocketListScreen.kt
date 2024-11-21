@@ -31,8 +31,8 @@ fun RocketListScreen(
 
     RocketListScreenContent(
         state = state,
-        onGoToDetail = { id ->
-            viewModel.send(RocketListAction.OpenDetail(id))
+        onGoToDetail = { id, name ->
+            viewModel.send(RocketListAction.OpenDetail(id, name))
         },
         modifier = modifier,
     )
@@ -41,7 +41,7 @@ fun RocketListScreen(
 @Composable
 internal fun RocketListScreenContent(
     state: RocketListScreenState,
-    onGoToDetail: (rocketId: String) -> Unit,
+    onGoToDetail: (rocketId: String, rocketName: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -55,7 +55,7 @@ internal fun RocketListScreenContent(
             RocketRow(
                 rocket = rocket,
                 onClick = {
-                    onGoToDetail(rocket.id)
+                    onGoToDetail(rocket.id, rocket.name)
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -96,7 +96,7 @@ fun RocketListPreview() {
         )
         RocketListScreenContent(
             state = state,
-            onGoToDetail = {},
+            onGoToDetail = { _, _ -> },
             modifier = Modifier
                 .background(Color.Red),
         )

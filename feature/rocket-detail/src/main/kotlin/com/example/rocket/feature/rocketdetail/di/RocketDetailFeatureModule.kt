@@ -8,8 +8,12 @@ import org.koin.dsl.module
 
 val rocketDetailFeatureModule = module {
     viewModelOf(::RocketDetailViewModel)
-    viewModel<RocketDetailViewModel> { (id: String) ->
+    viewModel<RocketDetailViewModel> { (id: String, name: String) ->
         // TODO("Pass realdate")
-        RocketDetailViewModel(id = id, rocketDetail = mockRocketDetail())
+        RocketDetailViewModel(
+            id = id,
+            name = name,
+            rocketDetail = mockRocketDetail()
+        )
     }
 }

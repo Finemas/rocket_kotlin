@@ -1,9 +1,17 @@
 package com.example.rocket.feature.rocketdetail.ui
 
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,8 +29,6 @@ import com.example.rocket.library.uicore.ui.AppThemePreview
 import org.koin.androidx.compose.koinViewModel
 
 fun mockRocketDetail() = RocketDetail(
-    id = "falcon9",
-    name = "Falcon 9",
     description = "Falcon 9 is a reusable, two-stage rocket designed by SpaceX for reliable and safe transport of satellites and the Dragon spacecraft into orbit.",
     height = Length(meters = 70.0, feet = 229.6),
     diameter = Length(meters = 3.7, feet = 12.1),
@@ -58,17 +64,36 @@ fun RocketDetailScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RocketDetailScreenContent(
     state: RocketDetailScreenState,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        RocketDetailStateContent(state = state)
+    val clickAction = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = state.name) },
+                navigationIcon =  {
+                    IconButton(onClick = { clickAction?.onBackPressed() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .padding(innerPadding)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            RocketDetailStateContent(state = state)
+        }
     }
 }
 
@@ -78,7 +103,7 @@ private fun RocketDetailStateContent(
 ) {
     // TODO("handle states")
     state.detail?.let { detail ->
-        Overview(state.id)
+        Overview(detail.description)
 
         Row(
             modifier = Modifier
@@ -109,6 +134,7 @@ fun RocketDetailScreenPreview() {
     AppThemePreview {
         val state = RocketDetailScreenState(
             id = "---",
+            name = "Falcon 9",
             detail = mockRocketDetail()
         )
         RocketDetailScreenContent(state = state)
